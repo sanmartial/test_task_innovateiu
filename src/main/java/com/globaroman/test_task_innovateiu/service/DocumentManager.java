@@ -2,6 +2,7 @@ package com.globaroman.test_task_innovateiu.service;
 
 import lombok.Builder;
 import lombok.Data;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,7 @@ public class DocumentManager {
         if (document == null) {
             throw new RuntimeException("The document cannot be empty");
         }
+
         if (document.getAuthor() == null) {
             throw new RuntimeException("The document must contain the Author");
         }
@@ -64,6 +66,7 @@ public class DocumentManager {
         if (request == null) {
             return Collections.emptyList();
         }
+
         Set<Document> documentList = new HashSet<>();
 
         if (request.getAuthorIds() != null) {
@@ -122,7 +125,6 @@ public class DocumentManager {
         if (title == null || titlePrefixes.isEmpty()) {
             return true;
         }
-
         return titlePrefixes.stream().anyMatch(title::startsWith);
     }
 
@@ -130,7 +132,6 @@ public class DocumentManager {
         if (content == null || containsContents.isEmpty()) {
             return true;
         }
-
         return containsContents.stream().anyMatch(c -> content.toLowerCase(Locale.ROOT)
                 .contains(c.toLowerCase(Locale.ROOT)));
     }
