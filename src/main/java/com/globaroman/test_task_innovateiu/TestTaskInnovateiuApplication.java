@@ -19,6 +19,7 @@ public class TestTaskInnovateiuApplication {
         SpringApplication.run(TestTaskInnovateiuApplication.class, args);
 
         DocumentManager documentManager = new DocumentManager();
+
         DocumentManager.Author author1 = DocumentManager.Author.builder()
                 .name("Green")
                 .id("1").build();
@@ -55,20 +56,34 @@ public class TestTaskInnovateiuApplication {
         DocumentManager.Document docSave = documentManager.save(doc1);
         DocumentManager.Document docSave2 = documentManager.save(doc2);
         DocumentManager.Document docSave3 = documentManager.save(doc3);
+
         List<String> authorIds = new ArrayList<>();
-        authorIds.add(author1.getId());
+        List<String> contentDoc = new ArrayList<>();
+        List<String> titleDoc = new ArrayList<>();
+
+        titleDoc.add("Fun");
+
+        contentDoc.add("Life of");
+        contentDoc.add("creation");
+
+        //authorIds.add(author1.getId());
         authorIds.add(author2.getId());
 
 
-//        DocumentManager.SearchRequest request = DocumentManager.SearchRequest.builder()
-//                .authorIds(authorIds).build();
-        DocumentManager.SearchRequest request = null;
+        DocumentManager.SearchRequest request = DocumentManager.SearchRequest.builder()
+                .authorIds(authorIds)
+                //.titlePrefixes(titleDoc)
+                //.containsContents(contentDoc)
+                .createdFrom(LocalDate.parse("2023-11-10")
+                        .atStartOfDay(ZoneOffset.UTC)
+                        .toInstant())
+                .createdTo(LocalDate.parse("2024-12-12")
+                        .atStartOfDay(ZoneOffset.UTC)
+                        .toInstant())
+         .build();
+//        DocumentManager.SearchRequest request = null;
         List<DocumentManager.Document> search = documentManager.search(request);
 
         search.forEach(System.out::println);
-
-
-
     }
-
 }
